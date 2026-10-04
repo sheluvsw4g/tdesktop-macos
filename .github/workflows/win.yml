@@ -109,12 +109,6 @@ jobs:
           git status
           cd -
 
-          echo "Apply optimization patch to cmake"
-          cd "$TBUILD/$REPO_NAME/cmake"
-          git apply -v "$TBUILD/$REPO_NAME/patches/cmake_opt.patch"
-          git status
-          cd -
-
       - name: Install VS 2026 Build Tools.
         if: matrix.arch == 'arm64'
         shell: pwsh
@@ -235,7 +229,7 @@ jobs:
           ${{ matrix.qt }} ^
           %TDESKTOP_BUILD_API% ^
           -D CMAKE_CONFIGURATION_TYPES=Debug ^
-          -D CMAKE_COMPILE_WARNING_AS_ERROR=OFF ^
+          -D CMAKE_COMPILE_WARNING_AS_ERROR=ON ^
           -D CMAKE_MSVC_DEBUG_INFORMATION_FORMAT= ^
           -D DESKTOP_APP_DISABLE_AUTOUPDATE=OFF ^
           -D DESKTOP_APP_DISABLE_CRASH_REPORTS=OFF ^
