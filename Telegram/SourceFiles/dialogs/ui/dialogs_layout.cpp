@@ -496,7 +496,7 @@ void PaintRow(
 		p.setPen(Qt::NoPen);
 		p.setBrush(bg);
 		p.drawRoundedRect(pillRect, 10.0, 10.0);
-	} else if (context.currentBg->c.alpha() > 0) {
+	} else if (context.currentBg.color().alpha() > 0) {
 		p.fillRect(geometry, context.currentBg);
 	}
 	if (!(flags & Flag::TopicJumpRipple)) {
