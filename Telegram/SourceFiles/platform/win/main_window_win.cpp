@@ -703,8 +703,8 @@ void MainWindow::validateWindowTheme(bool native, bool night) {
 		return;
 #endif
 	} else if (!native) {
+		// Apply dark mode and Mica/Acrylic to custom titlebar window
 		SetWindowTheme(_hWnd, nullptr, nullptr);
-		return;
 	}
 
 	// See "https://github.com/microsoft/terminal/blob/"
