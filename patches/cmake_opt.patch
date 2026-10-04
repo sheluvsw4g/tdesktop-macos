@@ -1,0 +1,17 @@
+﻿diff --git a/options_win.cmake b/options_win.cmake
+index dd86342..3f6a4e1 100644
+--- a/options_win.cmake
++++ b/options_win.cmake
+@@ -59,6 +59,12 @@ if (MSVC)
+         # No support for the flag in upstream CMake as of 3.17.
+         # https://gitlab.kitware.com/cmake/cmake/issues/18837
+         /Zc:__cplusplus
++
++        # Force full optimization for maximum performance
++        /O2
++        /Oi
++        /Gy
++        /Gw
+     )
+ 
+     target_link_options(common_options
