@@ -484,7 +484,21 @@ void PaintRow(
 	if (swipeTranslation) {
 		p.translate(swipeMirrored ? swipeTranslation : -swipeTranslation, 0);
 	}
-	p.fillRect(geometry, bg);
+	if (context.active || context.selected) {
+		p.setRenderHint(QPainter::Antialiasing);
+		const auto pillMarginH = 8;
+		const auto pillMarginV = 4;
+		const auto pillRect = QRectF(
+			geometry.x() + pillMarginH,
+			geometry.y() + pillMarginV,
+			geometry.width() - (pillMarginH * 2),
+			geometry.height() - (pillMarginV * 2));
+		p.setPen(Qt::NoPen);
+		p.setBrush(bg);
+		p.drawRoundedRect(pillRect, 10.0, 10.0);
+	} else if (context.currentBg->c.alpha() > 0) {
+		p.fillRect(geometry, context.currentBg);
+	}
 	if (!(flags & Flag::TopicJumpRipple)) {
 		auto ripple = context.active
 			? st::dialogsRippleBgActive

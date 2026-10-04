@@ -2764,55 +2764,60 @@ void MainWidget::updateControlsGeometry() {
 		}
 		const auto shadowTop = _controller->window().verticalShadowTop();
 		const auto shadowHeight = height() - shadowTop;
+		const auto outerMargin = 10;
+		const auto islandGap = 10;
+		const auto dialogsLeft = outerMargin;
+		const auto dialogsTop = outerMargin;
+		const auto islandsHeight = height() - (outerMargin * 2);
+
 		if (_dialogs) {
 			accumulate_min(
 				dialogsWidth,
-				width() - st::columnMinimalWidthMain);
-			_dialogs->setGeometryToLeft(0, 0, dialogsWidth, height());
+				width() - st::columnMinimalWidthMain - outerMargin * 2);
+			_dialogs->setGeometry(
+				dialogsLeft,
+				dialogsTop,
+				dialogsWidth,
+				islandsHeight);
 		}
 		if (_sideShadow) {
-			_sideShadow->setGeometryToLeft(
-				dialogsWidth,
-				shadowTop,
-				st::lineWidth,
-				shadowHeight);
+			_sideShadow->hide();
 		}
 		if (_thirdShadow) {
-			_thirdShadow->setGeometryToLeft(
-				width() - thirdSectionWidth - st::lineWidth,
-				shadowTop,
-				st::lineWidth,
-				shadowHeight);
+			_thirdShadow->hide();
 		}
+		const auto mainSectionLeft = dialogsLeft + dialogsWidth + islandGap;
 		const auto mainSectionWidth = width()
-			- dialogsWidth
-			- thirdSectionWidth;
+			- mainSectionLeft
+			- thirdSectionWidth
+			- outerMargin;
+
 		if (_callTopBar) {
 			_callTopBar->resizeToWidth(mainSectionWidth);
-			_callTopBar->moveToLeft(dialogsWidth, 0);
+			_callTopBar->moveToLeft(mainSectionLeft, outerMargin);
 		}
 		if (_exportTopBar) {
 			_exportTopBar->resizeToWidth(mainSectionWidth);
-			_exportTopBar->moveToLeft(dialogsWidth, _callTopBarHeight);
+			_exportTopBar->moveToLeft(mainSectionLeft, outerMargin + _callTopBarHeight);
 		}
 		if (_player) {
 			_player->resizeToWidth(mainSectionWidth);
 			_player->moveToLeft(
-				dialogsWidth,
-				_callTopBarHeight + _exportTopBarHeight);
+				mainSectionLeft,
+				outerMargin + _callTopBarHeight + _exportTopBarHeight);
 		}
 		_history->setGeometryWithTopMoved(QRect(
-			dialogsWidth,
-			mainSectionTop,
+			mainSectionLeft,
+			dialogsTop,
 			mainSectionWidth,
-			height() - mainSectionTop
+			islandsHeight
 		), _contentScrollAddToY);
 		if (_hider) {
-			_hider->setGeometryToLeft(
-				dialogsWidth,
-				0,
+			_hider->setGeometry(
+				mainSectionLeft,
+				dialogsTop,
 				mainSectionWidth,
-				height());
+				islandsHeight);
 		}
 	}
 	if (_mainSection) {
