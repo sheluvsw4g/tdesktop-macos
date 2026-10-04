@@ -2762,8 +2762,6 @@ void MainWidget::updateControlsGeometry() {
 				thirdSectionWidth,
 				height() - thirdSectionTop);
 		}
-		const auto shadowTop = _controller->window().verticalShadowTop();
-		const auto shadowHeight = height() - shadowTop;
 		const auto outerMargin = 10;
 		const auto islandGap = 10;
 		const auto dialogsLeft = outerMargin;
